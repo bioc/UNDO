@@ -1,0 +1,11 @@
+exportPattern("^[[:alpha:]]+")
+
+import(BiocGenerics)
+import(Biobase)
+import(methods)
+
+importFrom(MASS, ginv)
+importFrom(boot, corr)
+importFrom(nnls, nnls)
+importFrom(stats, coef, na.omit, runif)
+importFrom(utils, write.table)

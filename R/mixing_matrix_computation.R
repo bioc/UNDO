@@ -1,0 +1,36 @@
+mixing_matrix_computation <-
+function(X,a1,a2){
+
+  
+  Aest <- cbind(a1,a2)
+  
+  scale <- ginv(Aest)%*%matrix(1,2,1)
+  scale <- as.vector(scale)
+  Aest <- Aest%*%diag(scale)
+  
+  if((Aest[1,1]==0&&Aest[2,2]==0)||(Aest[1,2]==0&&Aest[2,1]==0)){
+    Sest <- X    
+  } else {
+    Sest <- matrix(0,ncol=dim(Aest)[2],nrow=dim(X)[1])
+    for (i in 1:nrow(X)){
+      Sest[i,] <- coef(nnls(Aest,X[i,]))
+    }
+        
+  }
+  
+ 
+  ## create a new folder for results
+  folder <- substr(date(),1,10)
+  folder <- paste("Result",folder)
+  folder <- paste(folder,floor(runif(1,1,100000)))
+  dir.create(folder)
+  
+  write.table(Aest,file=paste(folder,'/Aest.txt',sep=''),col.names=FALSE,row.names=FALSE)
+  write.table(Sest,file=paste(folder,'/Sest.txt',sep=''),col.names=FALSE,row.names=FALSE)
+
+  result <- list(Aest,Sest)
+  return(result)
+  
+  
+  
+}
