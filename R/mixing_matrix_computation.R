@@ -1,24 +1,30 @@
 mixing_matrix_computation <-
-function(X,a1,a2){
+function(X,a1,a2,dimenMatrix){
 
   
   Aest <- cbind(a1,a2)
   
-  scale <- ginv(Aest)%*%matrix(1,2,1)
-  scale <- as.vector(scale)
-  Aest <- Aest%*%diag(scale)
   
-  if((Aest[1,1]==0&&Aest[2,2]==0)||(Aest[1,2]==0&&Aest[2,1]==0)){
-    Sest <- X    
+  if(!is.null(dimenMatrix)){
+    Atrans <- ginv(t(dimenMatrix)%*%dimenMatrix)%*%t(dimenMatrix)%*%Aest
+    scale <- ginv(Atrans)%*%matrix(1,dim(X)[2],1)
+    scale <- as.vector(scale)
+    Aest <- Atrans%*%diag(scale)
   } else {
-    Sest <- matrix(0,ncol=dim(Aest)[2],nrow=dim(X)[1])
-    for (i in 1:nrow(X)){
-      Sest[i,] <- coef(nnls(Aest,X[i,]))
-    }
-        
+    
+    scale <- ginv(Aest)%*%matrix(1,2,1)
+    scale <- as.vector(scale)
+    Aest <- Aest%*%diag(scale)
   }
   
- 
+  
+
+  Sest <- matrix(0,ncol=dim(Aest)[2],nrow=dim(X)[1])
+  for (i in 1:nrow(X)){
+    Sest[i,] <- coef(nnls(Aest,X[i,]))
+  }
+
+   
   ## create a new folder for results
   folder <- substr(date(),1,10)
   folder <- paste("Result",folder)

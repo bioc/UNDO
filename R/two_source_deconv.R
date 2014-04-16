@@ -23,20 +23,25 @@ function(ExpressionData,lowper=0.4,highper=0.1,epsilon1=0.01,epsilon2=0.01,
   }
   
   
-  
   ## select marker genes
   X <- unlist(gene_expression_input(X))
   markergene <- marker_gene_selection(X,lowper,highper,epsilon1,epsilon2)
-  #browser()
+  
   a1 <- unlist(markergene[[1]])
   a2 <- unlist(markergene[[2]])
-  deconvresult <- mixing_matrix_computation(X,a1,a2)
+  dimenMatrix <- unlist(markergene[[5]])
+  
+  deconvresult <- mixing_matrix_computation(X,a1,a2,dimenMatrix)
   Aest <- unlist(deconvresult[[1]])
   Sest <- unlist(deconvresult[[2]])
   
-
+  
+  ## check whether the input A is valid
   if(!is.null(A)) {
-    if(dim(A)[1]!=dim(Aest)[1]||dim(A)[2]!=dim(Aest)[2]) warning('The size of input mixing matrix is different from estimated mixing matrix.')
+    if(dim(A)[1]!=dim(Aest)[1]||dim(A)[2]!=dim(Aest)[2]){
+      warning('The size of input mixing matrix is different from estimated mixing matrix.')
+      E1 <- NULL      
+    }
     
     if(dim(A)[1]==dim(Aest)[1]&&dim(A)[2]==dim(Aest)[2]) {
       E1<- min(calc_E1(A,Aest),calc_E1(A,Aest[c(2,1),]))

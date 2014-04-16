@@ -33,6 +33,7 @@ Influence the number of marker genes. With increasing of epsilon1, the number ma
  \item{a2}{The slope of marker genes in source 2}
  \item{MG1}{The gene list of marker genes in source 1}
  \item{MG2}{The gene list of marker genes in source 2}
+ \item{dimenMatrix}{dimension reduction matrix}
 
 }
 \author{
@@ -40,6 +41,6 @@ Niya Wang (wangny@vt.edu)
 }
 \examples{
 X <- matrix(runif(20000),10000,2)
-MG_set <- marker_gene_selection(X, 0.4, 0.1, 1, 1)
+MG_set <- marker_gene_selection(X, 0.4, 0.1, 0.1, 0.1)
 }
 

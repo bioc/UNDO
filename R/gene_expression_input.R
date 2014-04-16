@@ -8,13 +8,7 @@ function(X) {
   
   if (dim(X)[2]==1) 
     stop('ERROR: Please input more than one samples.')
-  
-  if (dim(X)[2]>2){
-    X <- X[,1:2]
-    warning('Only the first two samples will be deconvoluted.')
-  }
-    
-  
+   
   ## make sure the input is nonnegative.
   if (min(X)<0) {
     stop('ERROR: The value of gene expression should be positive.')

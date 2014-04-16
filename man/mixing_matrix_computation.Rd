@@ -7,7 +7,7 @@ Calculate and scale the mixing matrix
 Calculate the mixing matrix based on the output from marker_gene_selection(), and scale the mixing matrix to make the sum of proportions from tumor and stroma equal to 1.The pure expression levels of tumor and stroma are also computed. 
 }
 \usage{
-mixing_matrix_computation(X, a1, a2)
+mixing_matrix_computation(X, a1, a2, dimenMatrix)
 }
 \arguments{
   \item{X}{
@@ -18,6 +18,9 @@ The slope of marker genes in source 1
 }
   \item{a2}{
 The slope of marker genes in source 2
+}
+  \item{dimenMatrix}{
+The dimention reduction matrix used to recover mixing matrix for all the samples
 }
 }
 \value{
@@ -31,6 +34,7 @@ Niya Wang (wangny@vt.edu)
 a1<- matrix(runif(2),2,1)
 a2<- matrix(runif(2),2,1)
 X <- 1000*matrix(runif(20000),10000,2)
-Deconv <- mixing_matrix_computation(X, a1, a2)
+dimenMatrix <- NULL
+Deconv <- mixing_matrix_computation(X, a1, a2, dimenMatrix)
 }
 
