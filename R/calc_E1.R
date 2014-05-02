@@ -1,7 +1,7 @@
 calc_E1 <-
 function(A,Aest){
   
-  P <- A%*%ginv(Aest)
+  P <- ginv(Aest)%*%A
   
   m <- dim(P)[1]
   n <- dim(P)[2]

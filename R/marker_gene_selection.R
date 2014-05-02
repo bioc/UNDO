@@ -25,8 +25,8 @@ function(X,lowper,highper,epsilon1,epsilon2) {
   eps1 <- epsilon1
   eps2 <- epsilon2
   
-  MG1 <- which((k>=max(k)-abs(eps1*max(k)))&k<=max(k))
-  MG2 <- which((k<=min(k)+abs(eps2*min(k)))&k>=min(k))
+  MG1 <- which((k<=min(k)+abs(eps2*min(k)))&k>=min(k))
+  MG2 <- which((k>=max(k)-abs(eps1*max(k)))&k<=max(k))
 
   
   ## handle the situation that one or two samples are pure

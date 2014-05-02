@@ -12,8 +12,8 @@ This package contains main function "two_source_deconv" to implement the deconvo
 \tabular{ll}{
 Package: \tab UNDO\cr
 Type: \tab Package\cr
-Version: \tab 0.99.2\cr
-Date: \tab 2014-02-24\cr
+Version: \tab 1.5.2\cr
+Date: \tab 2014-04-30\cr
 License: \tab GPL version 2 or later\cr
 }
 two_source_deconv(ExpressionData,lowper=0.4,highper=0.1,epsilon1=0.01,epsilon2=0.01,

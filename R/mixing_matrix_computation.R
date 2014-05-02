@@ -17,7 +17,7 @@ function(X,a1,a2,dimenMatrix){
     Aest <- Aest%*%diag(scale)
   }
   
-  
+  Aest <- Aest/matrix(rep(rowSums(Aest),2),nrow(Aest),2)
 
   Sest <- matrix(0,ncol=dim(Aest)[2],nrow=dim(X)[1])
   for (i in 1:nrow(X)){

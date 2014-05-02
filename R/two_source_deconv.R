@@ -44,7 +44,7 @@ function(ExpressionData,lowper=0.4,highper=0.1,epsilon1=0.01,epsilon2=0.01,
     }
     
     if(dim(A)[1]==dim(Aest)[1]&&dim(A)[2]==dim(Aest)[2]) {
-      E1<- min(calc_E1(A,Aest),calc_E1(A,Aest[c(2,1),]))
+      E1<- calc_E1(A,Aest)
     } else {
       E1<-NULL
     }

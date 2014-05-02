@@ -1,4 +1,9 @@
-This is UNDO package version 1.1.0.
+This is UNDO package version 1.5.2.
+
+A bug in function calc_E1() is fixed.
+
+
+This is UNDO package version 1.5.1.
 
 
 In this version, a dimension reduction function is added so that users can deconvolute multiple samples in one run.  
