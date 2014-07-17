@@ -1,6 +1,6 @@
 two_source_deconv <-
 function(ExpressionData,lowper=0.4,highper=0.1,epsilon1=0.01,epsilon2=0.01,
-                              A=NULL,return=0){
+                              A=NULL,S1=NULL,S2=NULL,return=0){
   
   ## check the input
   if (lowper<0||lowper>1||highper<0||highper>1){
@@ -44,14 +44,29 @@ function(ExpressionData,lowper=0.4,highper=0.1,epsilon1=0.01,epsilon2=0.01,
     }
     
     if(dim(A)[1]==dim(Aest)[1]&&dim(A)[2]==dim(Aest)[2]) {
-      E1<- calc_E1(A,Aest)
+      E1<- min(calc_E1(A,Aest),calc_E1(A,Aest[c(2,1),]))
     } else {
       E1<-NULL
     }
   } else E1 <- NULL
   
   
-  if (return==1) list(Estimated_Mixing_Matrix=Aest,E1=E1,Sest)
-  else list(Estimated_Mixing_Matrix=Aest,E1=E1)
+  ## calculate the correlation between estimated and measured expression
+  if(!is.null(S1)){
+    S_corr1 <- max(corr(cbind(S1,Sest[,1])),corr(cbind(S1,Sest[,2])))
+  } else {
+    S_corr1 <-NULL
+  }
+  
+  if(!is.null(S2)){
+    S_corr2 <- max(corr(cbind(S2,Sest[,1])),corr(cbind(S2,Sest[,2])))
+  } else {
+    S_corr2 <- NULL
+  }
+  
+  ## output
+  if (return==1) list(Estimated_Mixing_Matrix=Aest,E1=E1,S1_correlation=S_corr1,
+                      S2_correlation=S_corr2,Sest)
+  else list(Estimated_Mixing_Matrix=Aest,E1=E1,S1_correlation=S_corr1,S2_correlation=S_corr2)
   
 }

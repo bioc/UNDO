@@ -55,7 +55,7 @@ This package includes five functions, which help realize the selection of marker
 
 \begin{enumerate}
 
-\item {\texttt{two\_source\_deconv}}: This is the main function that call all the subfunctions to implement the whole deconvolution process. It requires a $n$-by-$m$ gene expression data matrix or ExpressionSet object as input. Users can choose to input the percentage of genes with minimum and maximum norms they want to move. Depend on the data quality, users can also choose to input the epsilon 1 and epsilon 2 which control the number of marker genes. The argument return decides whether to return the estimated pure expression profiles. These arguments, except expression matrix, will be set as default values if the users did not specify them. The output of this function are estimated mixing matrix and estimated pure expression profiles when return is set to 1. If the real mixing matrix is provided, the output will also include the value of E1 measurement. The estimated mixing matrix and expression profiles will be saved in a newly generated folder under the workspace;
+\item {\texttt{two\_source\_deconv}}: This is the main function that call all the subfunctions to implement the whole deconvolution process. It requires a $n$-by-$m$ gene expression data matrix or ExpressionSet object as input. Users can choose to input the percentage of genes with minimum and maximum norms they want to move. Depend on the data quality, users can also choose to input the epsilon 1 and epsilon 2 which control the number of marker genes. The argument return decides whether to return the estimated pure expression profiles. These arguments, except expression matrix, will be set as default values if the users did not specify them. The output of this function are estimated mixing matrix and estimated pure expression profiles when return is set to 1. If the real mixing matrix is provided, the output will also include the value of E1 measurement. If the pure expression profiles are available, the function will also calculate the correlation between the pure and estimated expression profiles.The estimated mixing matrix and expression profiles will be saved in a newly generated folder under the workspace;
 \item {\texttt{gene\_expression\_input}}: This function is called by two\_source\_deconv() to detect whether the input gene expression data matrix is valid. If the input is null, or contains negative values, the algorithm will terminate. If the input contains missing value, the correspondence rows will be deleted and warning information will be given. If the correlation coefficient between two samples are equal to one, which means the two samples are from the same source, the algorithm will terminate. The output of the function is the gene expression data matrix after passing the validity check;
 \item {\texttt{dimension\_reduction}}: When the input expression data contains more than 2 samples, principle component analysis will be used to reduce the sample dimension m to 2. It returns the expression values and dimension reduction matrix used to recover the mixing matrix for all m samples;
 \item {\texttt{marker\_gene\_selection}}: This function implements the selection of marker genes. The output contains the marker gene list in two sources, and the slopes of marker genes which are used to calculate the estimated mixing matrix;
@@ -107,8 +107,12 @@ A
 In the gene expression data, genes with extremely small norms are removed since they are easily to be influenced by noise, and genes with extremely large norms may be outliers, so we also remove them in the following analysis.
 
 <<Deconvolution>>=
+#load pure tumor stroma expressions 
+data(PureMCF7HS27)
+S <- exprs(PureMCF7HS27)
+
 two_source_deconv(X,lowper=0.4,highper=0.1,epsilon1=0.01,
-epsilon2=0.01,A,return=0)
+epsilon2=0.01,A,S[,1],S[,2],return=0)
 											
 @
 
@@ -117,11 +121,9 @@ Since we have ground truth in this case, we can compare the estimated expression
 <<Scatterplot,fig=TRUE>>=
 # compute the estimated pure source expressions
 result <- two_source_deconv(X,lowper=0.4,highper=0.1,epsilon1=0.01,
-epsilon2=0.01,A,return=1)
-Sest <- result[[3]]
-#load pure tumor stroma expressions 
-data(PureMCF7HS27)
-S <- exprs(PureMCF7HS27)
+epsilon2=0.01,A,S[,1],S[,2],return=1)
+Sest <- result[[5]]
+
 #draw the scatter plots between pure and estimated expressions of 
 #MCF7 and HS27
 plot(S[,1],Sest[,1],main="MCF7" ,xlab="Estimated expression", 
@@ -140,7 +142,7 @@ From the above results, E1 is very close to 0, representing the highly similarit
 
 
 \section{Future Work}
-In the next version of UNDO package, we will add more dimension reduction functions so that users can select the method they prefer.
+In the next version of UNDO package, we will add more dimension reduction functions so that users can select and compare different dimension reduction methods.
 
 
 \newpage

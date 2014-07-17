@@ -12,12 +12,11 @@ This package contains main function "two_source_deconv" to implement the deconvo
 \tabular{ll}{
 Package: \tab UNDO\cr
 Type: \tab Package\cr
-Version: \tab 1.5.2\cr
+Version: \tab 1.7.3\cr
 Date: \tab 2014-04-30\cr
 License: \tab GPL version 2 or later\cr
 }
-two_source_deconv(ExpressionData,lowper=0.4,highper=0.1,epsilon1=0.01,epsilon2=0.01,
-                              A=NULL,return=0)
+two_source_deconv(ExpressionData,lowper=0.4,highper=0.1,epsilon1=0.01,epsilon2=0.01,A=NULL,S1=NULL,S2=NULL,return=0)
 }
 \author{
 Niya Wang <wangny@vt.edu>
@@ -27,5 +26,5 @@ Niya Wang <wangny@vt.edu>
 \examples{
 data(NumericalMixMCF7HS27)
 X <- NumericalMixMCF7HS27
-deconvResult <- two_source_deconv(X, lowper = 0.4, highper = 0.1, epsilon1 = 0.1, epsilon2 = 0.1, A = NULL, return = 0)
+deconvResult <- two_source_deconv(X, lowper = 0.4, highper = 0.1, epsilon1 = 0.1, epsilon2 = 0.1, A = NULL, S1=NULL, S2=NULL, return = 0)
 }

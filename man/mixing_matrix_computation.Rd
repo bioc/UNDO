@@ -4,7 +4,7 @@
 Calculate and scale the mixing matrix
 }
 \description{
-Calculate the mixing matrix based on the output from marker_gene_selection(), and scale the mixing matrix to make the sum of proportions from tumor and stroma equal to 1.The pure expression levels of tumor and stroma are also computed. 
+Calculate the mixing matrix based on the output from marker_gene_selection(), and scale the mixing matrix to make the sum of proportions from tumor and stroma equal to 1. The pure expression levels of tumor and stroma are also computed. 
 }
 \usage{
 mixing_matrix_computation(X, a1, a2, dimenMatrix)

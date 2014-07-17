@@ -1,9 +1,18 @@
-This is UNDO package version 1.5.2.
+07/17/14
+UNDO package version 1.7.3
+
+Fix a bug in function mixing_matrix_computation().
+
+Add the function of comparing the pure expression profiles with the estimated expression profiles, and return the Pearson correlation coefficient.
+
+05/02/14
+UNDO package version 1.5.2
 
 A bug in function calc_E1() is fixed.
 
 
-This is UNDO package version 1.5.1.
 
+05/01/14
+UNDO package version 1.5.1
 
-In this version, a dimension reduction function is added so that users can deconvolute multiple samples in one run.  
+In this version, a PCA-based dimension reduction function is added so that users can deconvolute multiple samples in one run.  
