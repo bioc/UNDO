@@ -1,7 +1,7 @@
 Package: UNDO
 Type: Package
 Title: Unsupervised Deconvolution of Tumor-Stromal Mixed Expressions
-Version: 1.44.0
+Version: 1.45.0
 Date: 2014-07-17
 Author: Niya Wang <wangny@vt.edu>
 Maintainer: Niya Wang <wangny@vt.edu>
